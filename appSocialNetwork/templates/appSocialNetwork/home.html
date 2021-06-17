@@ -1,0 +1,36 @@
+{% extends 'appSocialNetwork/base.html' %}
+
+{% block title %} Главная {% endblock %}
+
+{% block content %}
+    <style>
+        #ssilka_a { text-decoration: none; }
+    </style>
+
+    <p>Ласкаво прошу на мій сайт!</p>
+    <h2>История публикаций</h2>
+    <hr>
+    {% for element in obj %}
+        {{ element.author_publication }}
+        <br> <em> {{ element.date_publication }} </em>
+        <h2> <a id="ssilka_a" href="{% url 'pagePublication' element.id %}">{{ element.title_book }}</a> </h2>
+        <h2>{{ element.author_book }}</h2>
+        {% if element.date_book %} {% endif %}
+        <br>{% if element.description_book %} {% endif %}
+        {% if element.image_book %}
+            <img src="{{ element.image_book.url }}"alt="Изображение не загрузилось" />
+            <br>
+        {% endif %}
+        {% if element.pdf_book %}
+            <a href="{{ element.pdf_book.url }}">ЧИТАТЬ ИЛИ СКАЧАТЬ</a>
+        {% endif %}
+        <br>
+        <br>   
+        <a id="ssilka_a" href="{% url 'home' %}"> Like </a>
+        {{ element.like_publication }}   
+        <hr>
+    {% endfor %}
+  
+    
+
+{% endblock %}

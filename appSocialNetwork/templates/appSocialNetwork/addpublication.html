@@ -1,0 +1,19 @@
+{% extends 'appSocialNetwork/base.html' %}
+
+{% block title %} Добавить публикацию {% endblock %}
+
+{% block content %}
+
+    <br> 
+    <br>  
+    Заполните как минимум первые два поля информацией!
+    <br>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit" class="btn btn-primary">ВЫГРУЗИТЬ НА САЙТ</button>
+    </form>
+
+{% endblock %}
