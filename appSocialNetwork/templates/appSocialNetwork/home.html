@@ -13,7 +13,7 @@
     {% for element in obj %}
         {{ element.author_publication }}
         <br> <em> {{ element.date_publication }} </em>
-        <h2> <a id="ssilka_a" href="{% url 'pagePublication' element.id %}">{{ element.title_book }}</a> </h2>
+        <h2> <a id="ssilka_a" href="{% url 'pagePost' element.id %}">{{ element.title_book }}</a> </h2>
         <h2>{{ element.author_book }}</h2>
         {% if element.date_book %} {% endif %}
         <br>{% if element.description_book %} {% endif %}

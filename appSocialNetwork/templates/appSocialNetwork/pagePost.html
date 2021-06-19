@@ -1,0 +1,36 @@
+{% extends 'appSocialNetwork/base.html' %}
+
+{% block title %} ПУБЛИКАЦИЯ {% endblock %}
+
+{% block content %}
+    <style>
+        #ssilka_a { text-decoration: none; }
+    </style>
+
+    <hr>
+    <br>  {{ publication.author_publication }}
+    <br> <em> {{ publication.date_publication }} </em>
+    <h2>
+        {{ publication.title_book }} <br>
+        {{ publication.author_book }}
+        ,
+        {{ publication.date_book }}
+        г.
+    </h2>
+    
+    {% if publication.image_book %}
+        <img src="{{ publication.image_book.url }}"alt="Изображение не загрузилось" />
+    {% endif %}
+    <br>
+    {% if publication.pdf_book %}
+        <a href="{{ publication.pdf_book.url }}">ЧИТАТЬ ИЛИ СКАЧАТЬ</a>
+    {% endif %}
+    <br>
+    <br>
+    {{ publication.description_book }}
+    <br>
+    <br>
+    <a id="ssilka_a" href="{% url 'home' %}"> Like </a>
+    {{ publication.like_publication }}
+    
+{% endblock %}

@@ -19,9 +19,7 @@ class Book(models.Model):
     on_delete = models.CASCADE, blank = True, null = True)
     like_publication = models.BigIntegerField('Себе', default = 0) 
     like_author = models.BooleanField(default = False)
-    #like_users = models.ManyToManyField(User, related_name="like") 
-    #like_count = models.BigIntegerField('Себе', default = 0)
-    
+
     def __str__(self):
         return self.title_book
 
@@ -44,17 +42,16 @@ class Book(models.Model):
         self.image_book.delete()
         super().delete(*args, **kwargs)
 
-
+"""
 class Comment(models.Model):
-    comment_book = models.ForeignKey(Book, verbose_name = 'публикация', on_delete = models.CASCADE)
-    comment_text = models.TextField('текст комментария')
-    comment_time = models.DateTimeField('время комментария', auto_now_add = True, db_index = True)
-    comment_author = models.ForeignKey(User, verbose_name = 'комментатор',
-    on_delete = models.CASCADE, blank = True, null = True)
+    publication_book = models.ForeignKey(Book, on_delete = models.CASCADE)
+    author_name = models.CharField('имья автора', max_length = 50)
+    author_comment = models.CharField('текст коментаря', max_length = 200)
 
     def __str__(self):
-        return str(self.id)
+        return self.author_name
     
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+"""

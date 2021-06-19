@@ -9,9 +9,7 @@ urlpatterns = [
 	path('logout/', views.logout_page, name = "logout"),
     path('mylabel/', views.myLabel, name = "mylabel"),
     path('mylabel/addpublication/', views.addPublication, name = "addpublication"),
-    path('<int:pagePublication_id>/', views.pagePublication, name = 'pagePublication'),
-    #path('<int:Like_id>/', views.controlLike, name = 'controlLike'),
-    
+    path('<int:pagePost_id>/', views.pagePost, name = 'pagePost'),
     
     
 ]
