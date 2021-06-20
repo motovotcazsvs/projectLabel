@@ -66,3 +66,23 @@ def pagePost(request, pagePost_id):
         raise Http404("Публикация не найдена!")
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
+
+@login_required
+def post_like(request, add_id, pk):
+    if request.method == "POST":
+        if request.is_authenticated:
+            post_item = Post.objects.get(id=add_id)
+            user_item = User.filter.get(like=add_id)
+            current_user = request.user
+            if current_user not in user_item:
+                try:
+                    post_item.likes += 1
+                    post_item.like.add(current_user)
+                    post_item.save()
+                    return redirect('post_detail', pk=pk)
+                except ObjectDoesNotExist:
+                    return redirect('post_detail', pk=pk)
+            else:
+                return redirect('post_detail', pk=pk)
+        else:
+            return redirect('post_detail', pk=pk)

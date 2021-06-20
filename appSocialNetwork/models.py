@@ -17,8 +17,10 @@ class Book(models.Model):
     date_publication = models.DateTimeField('Дата публикации', auto_now_add = True, db_index = True)
     author_publication = models.ForeignKey(User, verbose_name = 'Пользователь',
     on_delete = models.CASCADE, blank = True, null = True)
-    like_publication = models.BigIntegerField('Себе', default = 0) 
-    like_author = models.BooleanField(default = False)
+    #like_publication = models.BigIntegerField('Себе', default = 0) 
+    #like_author = models.BooleanField(default = False)
+    like = models.ManyToManyField(User, related_name = "like")
+    likes = models.IntegerField(default = 0, verbose_name = "Likes")
 
     def __str__(self):
         return self.title_book
