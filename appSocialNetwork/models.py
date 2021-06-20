@@ -19,8 +19,8 @@ class Book(models.Model):
     on_delete = models.CASCADE, blank = True, null = True)
     #like_publication = models.BigIntegerField('Себе', default = 0) 
     #like_author = models.BooleanField(default = False)
-    like = models.ManyToManyField(User, related_name = "like")
-    likes = models.IntegerField(default = 0, verbose_name = "Likes")
+    like_author = models.ManyToManyField(User, related_name = "like")
+    like_publication = models.IntegerField(default = 0, verbose_name = "Likes")
 
     def __str__(self):
         return self.title_book
