@@ -62,8 +62,27 @@ def addPublication(request):
 def pagePost(request, pagePost_id):
     try:
         i = Book.objects.get( id = pagePost_id )
-        #post_likes =  i.post_like.count()
     except:
         raise Http404("Публикация не найдена!")
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
+
+#@login_required
+def post_like(request, add_id, pk):
+    if request.method == "POST":
+        if request.is_authenticated:
+            post_item = Post.objects.get(id=add_id)
+            user_item = User.filter.get(like=add_id)
+            current_user = request.user
+            if current_user not in user_item:
+                try:
+                    post_item.like_publication += 1
+                    post_item.like_author.add(current_user)
+                    post_item.save()
+                    return redirect('pagePost', pk=pk)
+                except ObjectDoesNotExist:
+                    return redirect('pagePost', pk=pk)
+            else:
+                return redirect('pagePost', pk=pk)
+        else:
+            return redirect('pagePost', pk=pk)

@@ -30,7 +30,11 @@
     {{ publication.description_book }}
     <br>
     <br>
-    <a id="ssilka_a" href="{'home'}"> Like </a>
-    {{ publication.like_publication }}
+    
+    <form method="post">
+        {% csrf_token %}
+        <a class="glyphicon glyphicon-thumbs-up" href="{ url 'post_like' add_id=request.user.id pk=pagePost_id.pk }"> Like2</a>
+        <span>{{post.like_publication}}</span>
+    </form>
     
 {% endblock %}
