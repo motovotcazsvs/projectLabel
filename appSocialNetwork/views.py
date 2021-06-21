@@ -67,7 +67,7 @@ def pagePost(request, pagePost_id):
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
 
-#@login_required
+@login_required
 def post_like(request, add_id, pk):
     if request.method == "POST":
         if request.is_authenticated:
