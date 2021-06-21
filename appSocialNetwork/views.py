@@ -67,11 +67,10 @@ def pagePost(request, pagePost_id):
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
 
-@login_required
-def post_like(request, add_id, pk):
+def post_like(request, pagePost_id, add_id):
     if request.method == "POST":
         if request.is_authenticated:
-            post_item = Post.objects.get(id=add_id)
+            post_item = Book.objects.get(id=add_id)
             user_item = User.filter.get(like=add_id)
             current_user = request.user
             if current_user not in user_item:
@@ -79,10 +78,10 @@ def post_like(request, add_id, pk):
                     post_item.like_publication += 1
                     post_item.like_author.add(current_user)
                     post_item.save()
-                    return redirect('pagePost', pk=pk)
+                    return redirect('pagePost', id=pagePost_id)
                 except ObjectDoesNotExist:
-                    return redirect('pagePost', pk=pk)
+                    return redirect('pagePost', pagePost_id=pagePost_id)
             else:
-                return redirect('pagePost', pk=pk)
+                return redirect('pagePost', pagePost_id=pagePost_id)
         else:
-            return redirect('pagePost', pk=pk)
+            return redirect('pagePost', pagePost_id=pagePost_id)

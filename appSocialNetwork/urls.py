@@ -10,6 +10,6 @@ urlpatterns = [
     path('mylabel/', views.myLabel, name = "mylabel"),
     path('mylabel/addpublication/', views.addPublication, name = "addpublication"),
     path('<int:pagePost_id>/', views.pagePost, name = 'pagePost'),
-    path('<pk>/<add_id>', views.post_like, name ='post_like')    
+    path('<pagePost_id>/<add_id>', views.post_like, name ='post_like')    
 ]
 
