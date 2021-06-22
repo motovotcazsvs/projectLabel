@@ -67,6 +67,7 @@ def pagePost(request, pagePost_id):
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
 
+#@login_required
 def post_like(request, pagePost_id, add_id):
     if request.method == "POST":
         if request.is_authenticated:
@@ -78,7 +79,7 @@ def post_like(request, pagePost_id, add_id):
                     post_item.like_publication += 1
                     post_item.like_author.add(current_user)
                     post_item.save()
-                    return redirect('pagePost', id=pagePost_id)
+                    return redirect('pagePost', pagePost_id=pagePost_id)
                 except ObjectDoesNotExist:
                     return redirect('pagePost', pagePost_id=pagePost_id)
             else:
