@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-#app_name = 'appSocialNetwork'
 urlpatterns = [
     path('', views.home, name = 'home'),
     path('signup/', views.signup_page, name = 'signup'),
@@ -10,6 +9,6 @@ urlpatterns = [
     path('mylabel/', views.myLabel, name = "mylabel"),
     path('mylabel/addpublication/', views.addPublication, name = "addpublication"),
     path('<int:pagePost_id>/', views.pagePost, name = 'pagePost'),
-    path('<pagePost_id>/<add_id>', views.post_like, name ='post_like')    
+    path('like/', views.like_post, name = 'like_post'),    
 ]
 

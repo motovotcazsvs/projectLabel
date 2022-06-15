@@ -6,8 +6,9 @@ from .forms import UserRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import BookForm
-from django.contrib.auth.decorators import login_required
-
+#from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 
 def home(request):
     #obj = Book.objects.all()
@@ -67,22 +68,9 @@ def pagePost(request, pagePost_id):
     
     return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
 
-#@login_required
-def post_like(request, pagePost_id, add_id):
-    if request.method == "POST":
-        if request.is_authenticated:
-            post_item = Book.objects.get(id=add_id)
-            user_item = User.filter.get(like=add_id)
-            current_user = request.user
-            if current_user not in user_item:
-                try:
-                    post_item.like_publication += 1
-                    post_item.like_author.add(current_user)
-                    post_item.save()
-                    return redirect('pagePost', pagePost_id=pagePost_id)
-                except ObjectDoesNotExist:
-                    return redirect('pagePost', pagePost_id=pagePost_id)
-            else:
-                return redirect('pagePost', pagePost_id=pagePost_id)
-        else:
-            return redirect('pagePost', pagePost_id=pagePost_id)
+
+def like_post(request): 
+    post = get_object_or_404(Book, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    #return render(request, 'appSocialNetwork/pagePost.html', post.id)
+    return redirect('home')

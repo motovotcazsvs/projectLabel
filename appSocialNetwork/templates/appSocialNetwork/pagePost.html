@@ -31,10 +31,9 @@
     <br>
     <br>
     
-    <form method="post">
+    <form action="{% url 'like_post' %}" method="post">
         {% csrf_token %}
-        <a class="glyphicon glyphicon-thumbs-up" href="{ url 'post_like' add_id=request.user.id }"> Like2</a>
-        <span>{{publication.like_publication}}</span>
+        <button type="submit" name="post_id" value="{{ publication.id }}" class="btn btn-primary">Like</button>
     </form>
     
 {% endblock %}

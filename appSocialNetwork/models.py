@@ -15,12 +15,8 @@ class Book(models.Model):
     image_book = models.ImageField(blank = True, upload_to = 'image/', verbose_name = 'Изображение книги')
     pdf_book = models.FileField(blank = True, upload_to = 'pdf/', verbose_name = 'Ссылка pdf')
     date_publication = models.DateTimeField('Дата публикации', auto_now_add = True, db_index = True)
-    author_publication = models.ForeignKey(User, verbose_name = 'Пользователь',
-    on_delete = models.CASCADE, blank = True, null = True)
-    #like_publication = models.BigIntegerField('Себе', default = 0) 
-    #like_author = models.BooleanField(default = False)
-    like_author = models.ManyToManyField(User, related_name = "like")
-    like_publication = models.IntegerField(default = 0, verbose_name = "Likes")
+    author_publication = models.ForeignKey(User, verbose_name = 'Пользователь', on_delete = models.CASCADE, blank = True, null = True)
+    likes = models.ManyToManyField(User, related_name = "likes", blank = True)
 
     def __str__(self):
         return self.title_book
@@ -37,7 +33,7 @@ class Book(models.Model):
             return '(Нет изображения)'
     adminShowImage.short_description = 'Изображение'
     adminShowImage.allow_tags = True
-
+    
     #для удаления файлов с медиа при удалении обьекта
     def delete(self, *args, **kwargs):
         self.pdf_book.delete()
