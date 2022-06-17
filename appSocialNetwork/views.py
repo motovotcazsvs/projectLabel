@@ -61,16 +61,24 @@ def addPublication(request):
     return render(request, 'appSocialNetwork/addpublication.html', {'form': form})
 
 def pagePost(request, pagePost_id):
+    is_liked = False
     try:
         i = Book.objects.get( id = pagePost_id )
+        if i.likes.filter(id=request.user.id).exists():
+            is_liked = True
     except:
         raise Http404("Публикация не найдена!")
     
-    return render(request, 'appSocialNetwork/pagePost.html', {'publication': i})
+    return render(request, 'appSocialNetwork/pagePost.html', {'publication': i, 'is_liked': is_liked, 'total_likes': i.totalLikes()})
 
 
 def like_post(request): 
     post = get_object_or_404(Book, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
-    #return render(request, 'appSocialNetwork/pagePost.html', post.id)
-    return redirect('home')
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return render(request, 'appSocialNetwork/pagePost.html', {'publication': post, 'is_liked': is_liked, 'total_likes': post.totalLikes()})

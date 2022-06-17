@@ -40,6 +40,10 @@ class Book(models.Model):
         self.image_book.delete()
         super().delete(*args, **kwargs)
 
+    def totalLikes(self):
+        return self.likes.count()
+
+
 """
 class Comment(models.Model):
     publication_book = models.ForeignKey(Book, on_delete = models.CASCADE)
